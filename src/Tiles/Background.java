@@ -1,11 +1,12 @@
 package Tiles;
 
-import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 import javax.imageio.ImageIO;
 
-import main.Game; 
-import main.GamePanel;
+import Game.GamePanel;
 
 public class Background {
     private BufferedImage image;
@@ -19,7 +20,7 @@ public class Background {
 
     public Background(String s, double ms) {
         try{
-            image =  ImageIO.read(getClass().getResourceAsStream(s));
+            image =  ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/stocks.jpeg"));
         }
         catch (Exception e){
             e.printStackTrace();

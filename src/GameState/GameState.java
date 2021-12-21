@@ -4,7 +4,7 @@ import java.awt.*;
 
 public abstract class GameState {
     
-    GameStateManager gsm;
+    protected GameStateManager gsm;
 
     abstract public void init();
     abstract public void update();
