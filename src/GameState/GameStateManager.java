@@ -1,11 +1,9 @@
 package GameState;
 
-import java.util.ArrayList;
-
 // Game state manager
 public class GameStateManager {
     // Array of GameState objects
-    private ArrayList<GameState> gameStates;
+    private GameState[] gameStates;
     // Current state indicated by index
     private int currentState;
     
@@ -15,35 +13,35 @@ public class GameStateManager {
 
     public GameStateManager(){
         // initialize the game State array
-        gameStates = new ArrayList<GameState>();
+        GameState[] gameStates = new GameState[3];
         currentState = MENUSTATE;
-        // add a new game state to the array with gsm as the parameter
-        gameStates.add(new MenuState(this));
+        gameStates[MENUSTATE] = new MenuState(this);
+        
     }
     
     public void setState(int state){
         // set the current state to a different state
         currentState = state;
         // call the init method of the new state
-        gameStates.get(currentState).init();
+        gameStates[currentState].init();
     }
 
     public void update(){
         // update the current state
-        gameStates.get(currentState).update();
+        gameStates[currentState].update();
     }
 
     public void draw(java.awt.Graphics2D g){
         // draw the current state and pass the graphics object we're using from the main class
-        gameStates.get(currentState).draw(g);
+        gameStates[currentState].draw(g);
     }
 
     public void keyPressed(int k){
         // pass the key pressed to the current state
-        gameStates.get(currentState).keyPressed(k);
+        gameStates[currentState].keyPressed(k);
     }
     public void keyReleased(int k){
         // pass the key released to the current state
-        gameStates.get(currentState).keyReleased(k);
+        gameStates[currentState].keyReleased(k);
     }
 }
