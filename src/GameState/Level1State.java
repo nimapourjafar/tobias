@@ -2,7 +2,13 @@ package GameState;
 
 import java.awt.Graphics2D;
 
+import Game.GamePanel;
+import Tiles.TileMap;
+import java.awt.*;
+
 public class Level1State extends GameState {
+
+    private TileMap tileMap;
 
     public Level1State(GameStateManager gsm){
         this.gsm = gsm;
@@ -10,8 +16,8 @@ public class Level1State extends GameState {
     }
 
     public void init() {
-        
-        
+        tileMap = new TileMap(18);
+        tileMap.loadMap("/Users/nimapourjafar/Documents/GitHub/tobias/assets/map/world.csv");
     }
 
     public void update() {
@@ -20,7 +26,11 @@ public class Level1State extends GameState {
     }
 
     public void draw(Graphics2D g) {
-        // TODO Auto-generated method stub
+        g.setColor(Color.white);
+        g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
+
+        tileMap.draw(g);
+        
         
     }
 

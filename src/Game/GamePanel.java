@@ -2,18 +2,21 @@ package Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import javax.swing.JPanel;
-import GameState.GameStateManager;
 import java.awt.event.*;
 
-public class GamePanel extends JPanel implements Runnable, KeyListener{
+import javax.swing.JPanel;
+
+import GameState.GameStateManager;
+
+public class GamePanel extends JPanel 
+	implements Runnable, KeyListener{
 	
-	//dimensions
+	// dimensions
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	
-	// game thread 
+	// game thread
 	private Thread thread;
 	private boolean running;
 	private int FPS = 60;
@@ -23,51 +26,53 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 	private BufferedImage image;
 	private Graphics2D g;
 	
-	// game state manager 
+	// game state manager
 	private GameStateManager gsm;
 	
-	public GamePanel ()
-	{
+	public GamePanel() {
 		super();
-		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		setPreferredSize(
+			new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		setFocusable(true);
-		requestFocus();	
+		requestFocus();
 	}
 	
-	public void addNotify() 
-	{
+	public void addNotify() {
 		super.addNotify();
-		if (thread == null)
-		{
+		if(thread == null) {
 			thread = new Thread(this);
-			addKeyListener (this);
+			addKeyListener(this);
 			thread.start();
 		}
 	}
 	
-	public void init()
-	{
-		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private void init() {
+		
+		image = new BufferedImage(
+					WIDTH, HEIGHT,
+					BufferedImage.TYPE_INT_RGB
+				);
 		g = (Graphics2D) image.getGraphics();
 		
-		running = true; 
+		running = true;
 		
-		gsm = new GameStateManager();	
+		gsm = new GameStateManager();
+		
 	}
 	
-	public void run() 
-	{
+	public void run() {
+		
 		init();
 		
-		// 3 time stamps
 		long start;
 		long elapsed;
 		long wait;
+		
+		// game loop
+		while(running) {
 			
-		//game loop
-		while(running)
-		{
-			start = System.nanoTime();	
+			start = System.nanoTime();
+			
 			update();
 			draw();
 			drawToScreen();
@@ -75,51 +80,55 @@ public class GamePanel extends JPanel implements Runnable, KeyListener{
 			elapsed = System.nanoTime() - start;
 			
 			wait = targetTime - elapsed / 1000000;
-			if(wait < 0)
-			{
-				wait = 5;
-			}			
-			try 
-			{
+			if(wait < 0) wait = 5;
+			
+			try {
 				Thread.sleep(wait);
 			}
-			catch (Exception e)
-			{
+			catch(Exception e) {
 				e.printStackTrace();
 			}
+			
 		}
+		
 	}
 	
-	private void update() 
-	{
+	private void update() {
 		gsm.update();
 	}
-	
-	private void draw() 
-	{
+	private void draw() {
 		gsm.draw(g);
 	}
-	
-	private void drawToScreen() 
-	{
+	private void drawToScreen() {
 		Graphics g2 = getGraphics();
-		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g2.drawImage(image, 0, 0,
+				WIDTH * SCALE, HEIGHT * SCALE,
+				null);
 		g2.dispose();
-		
 	}
 	
-	public void keyTyped(KeyEvent key)
-	{
-		
-	}
-	
-	public void keyPressed(KeyEvent key)
-	{
+	public void keyTyped(KeyEvent key) {}
+	public void keyPressed(KeyEvent key) {
 		gsm.keyPressed(key.getKeyCode());
 	}
-	
-	public void keyReleased(KeyEvent key)
-	{
+	public void keyReleased(KeyEvent key) {
 		gsm.keyReleased(key.getKeyCode());
 	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

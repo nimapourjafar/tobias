@@ -1,47 +1,46 @@
 package GameState;
 
+import java.util.ArrayList;
+
 // Game state manager
 public class GameStateManager {
-    // Array of GameState objects
-    private GameState[] gameStates;
-    // Current state indicated by index
-    private int currentState;
-    
-    // Global variables for the state index
-    public int MENUSTATE = 0;
-    public int LEVEL1STATE = 1;
-
-    public GameStateManager(){
-        // initialize the game State array
-        GameState[] gameStates = new GameState[3];
-        currentState = MENUSTATE;
-        gameStates[MENUSTATE] = new MenuState(this);
-        
-    }
-    
-    public void setState(int state){
-        // set the current state to a different state
-        currentState = state;
-        // call the init method of the new state
-        gameStates[currentState].init();
-    }
-
-    public void update(){
-        // update the current state
-        gameStates[currentState].update();
-    }
-
-    public void draw(java.awt.Graphics2D g){
-        // draw the current state and pass the graphics object we're using from the main class
-        gameStates[currentState].draw(g);
-    }
-
-    public void keyPressed(int k){
-        // pass the key pressed to the current state
-        gameStates[currentState].keyPressed(k);
-    }
-    public void keyReleased(int k){
-        // pass the key released to the current state
-        gameStates[currentState].keyReleased(k);
-    }
+	
+	private ArrayList<GameState> gameStates;
+	private int currentState;
+	
+	public static final int MENUSTATE = 0;
+	public static final int LEVEL1STATE = 1;
+	
+	public GameStateManager() {
+		
+		gameStates = new ArrayList<GameState>();
+		
+		currentState = MENUSTATE;
+		gameStates.add(new MenuState(this));
+		gameStates.add(new Level1State(this));
+		
+	}
+	
+	public void setState(int state) {
+		currentState = state;
+		gameStates.get(currentState).init();
+	}
+	
+	public void update() {
+		gameStates.get(currentState).update();
+	}
+	
+	public void draw(java.awt.Graphics2D g) {
+		gameStates.get(currentState).draw(g);
+	}
+	
+	public void keyPressed(int k) {
+		gameStates.get(currentState).keyPressed(k);
+	}
+	
+	public void keyReleased(int k) {
+		gameStates.get(currentState).keyReleased(k);
+	}
+	
 }
+
