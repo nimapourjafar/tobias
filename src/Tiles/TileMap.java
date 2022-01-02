@@ -124,6 +124,8 @@ public class TileMap {
 	public int gety() { return (int)y; }
 	public int getWidth() { return width; }
 	public int getHeight() { return height; }
+	public int getNumRows() { return numRows; }
+	public int getNumCols() { return numCols; }
 	
 	public int getType(int row, int col) {
 		int token = map[row][col];
@@ -137,16 +139,24 @@ public class TileMap {
 		
 		fixBounds();
 		
-		colOffset = (int)-this.x / tileSize;
-		rowOffset = (int)-this.y / tileSize;
+		colOffset = (int)this.x *-1/ tileSize;
+		rowOffset = (int)this.y *-1 / tileSize;
 		
 	}
 	
 	private void fixBounds() {
-		if(x < xmin) x = xmin;
-		if(y < ymin) y = ymin;
-		if(x > xmax) x = xmax;
-		if(y > ymax) y = ymax;
+		if(x < xmin) {
+			x = xmin;
+		}
+		if(y < ymin) {
+			y = ymin;
+		}
+		if(x > xmax){
+			x = xmax;
+		}
+		if(y > ymax){ 
+			y = ymax;
+		}
 	}
 	
 	public void draw(java.awt.Graphics2D g) {

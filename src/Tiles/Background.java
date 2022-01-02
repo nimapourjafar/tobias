@@ -20,7 +20,7 @@ public class Background {
 
     public Background(String s, double ms) {
         try{
-            image =  ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/stocks.jpeg"));
+            image =  ImageIO.read(new File(s));
         }
         catch (Exception e){
             e.printStackTrace();
