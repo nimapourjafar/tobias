@@ -119,13 +119,27 @@ public class TileMap {
 		
 	}
 	
-	public int getTileSize() { return tileSize; }
-	public int getx() { return (int)x; }
-	public int gety() { return (int)y; }
-	public int getWidth() { return width; }
-	public int getHeight() { return height; }
-	public int getNumRows() { return numRows; }
-	public int getNumCols() { return numCols; }
+	public int getTileSize() { 
+		return tileSize; 
+	}
+	public int getX() { 
+		return (int)x; 
+	}
+	public int getY() {
+		 return (int)y; 
+	}
+	public int getWidth() { 
+		return width;
+	 }
+	public int getHeight() { 
+		return height; 
+	}
+	public int getNumRows() { 
+		return numRows;
+	 }
+	public int getNumCols() { 
+		return numCols; 
+	}
 	
 	public int getType(int row, int col) {
 		int token = map[row][col];
