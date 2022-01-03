@@ -48,7 +48,9 @@ public class TileMap {
         this.setPosition(0, 0);
 
 		xmin = GamePanel.WIDTH-width;
-		xMa
+		xmax = 0;
+		ymax =0;
+		ymin = GamePanel.HEIGHT-height; 
 	}
 	
 	public void loadTiles() {
