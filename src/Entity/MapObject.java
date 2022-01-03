@@ -63,6 +63,8 @@ public abstract class MapObject {
     protected double jumpStart;
     protected double stopJumpSpeed;
 
+    protected Animation animation;
+
     // constructor
     public MapObject(TileMap tm) {
         tileMap = tm;
@@ -186,7 +188,7 @@ public abstract class MapObject {
         this.y = y;
     }
 
-    public void setVector(double dx, double dy) {
+    public void setMoveSpeed(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }

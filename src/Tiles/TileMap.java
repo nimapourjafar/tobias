@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import Game.Game;
 import Game.GamePanel;
 
 public class TileMap {
@@ -45,6 +46,9 @@ public class TileMap {
 		numColsToDraw = GamePanel.WIDTH / tileSize + 2;
         this.loadTiles();
         this.setPosition(0, 0);
+
+		xmin = GamePanel.WIDTH-width;
+		xMa
 	}
 	
 	public void loadTiles() {
