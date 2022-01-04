@@ -9,7 +9,7 @@ public class Animation {
     private long delay;
     private boolean playedOnce;
 
-    public void Animation(){
+    public Animation(){
         playedOnce = false;
     }
 

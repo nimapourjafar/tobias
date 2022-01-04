@@ -27,6 +27,7 @@ public class Player extends MapObject {
     private long iFrameCounter;
 
     private boolean carMode;
+    private int gas;
 
     private int IDLE = 0;
     private int WALKING = 1;

@@ -212,6 +212,9 @@ public class TileMap {
 					(int)y + row * tileSize,
 					null
 				);
+
+				g.drawLine((int)x + col * tileSize, 0, (int)x + col * tileSize, GamePanel.HEIGHT);
+				g.drawLine(0,(int)y + row * tileSize,GamePanel.WIDTH,(int)y + row * tileSize);
 				
 			}
 			

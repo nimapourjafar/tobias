@@ -87,9 +87,13 @@ public abstract class MapObject {
 	public void calculateCorners(double x, double y) {
 		
 		int leftTile = (int)(x - cwidth / 2) / tileSize;
+		System.out.println(leftTile);
 		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
+		System.out.println(rightTile);
 		int topTile = (int)(y - cheight / 2) / tileSize;
+		System.out.println(topTile);
 		int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
+		System.out.println(bottomTile);
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
@@ -119,7 +123,7 @@ public abstract class MapObject {
 			if(topLeft || topRight) {
 				dy = 0;
 				ytemp = currRow * tileSize + cheight / 2;
-			}
+			} 
 			else {
 				ytemp += dy;
 			}
@@ -199,6 +203,9 @@ public abstract class MapObject {
 	}
 
 	public void draw(java.awt.Graphics2D g) {
+		g.drawLine((int)(x+xmap-cwidth/2), 0, (int)(x+xmap-cwidth/2), GamePanel.HEIGHT);
+		g.drawLine((int)(x+xmap+cwidth/2 -1), 0, (int)(x+xmap+cwidth/2-1), GamePanel.HEIGHT);
+
         if(facingRight) {
             g.drawRect(
                 (int)(x + xmap - width / 2),
@@ -210,7 +217,7 @@ public abstract class MapObject {
         }
         else {
             g.drawRect(
-                (int)(x + xmap - width / 2 + width),
+                (int)(x + xmap - width / 2 ),
                 (int)(y + ymap - height / 2),
                 width,
                 height
