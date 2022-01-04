@@ -13,9 +13,7 @@ public class Player extends MapObject {
 
     private boolean dead;
 
-    private boolean jumping;
-    private boolean falling;
-    private boolean moving;
+
 
     private boolean throwingMoney;
     private int moneyCost;
@@ -57,6 +55,7 @@ public class Player extends MapObject {
 		stopJumpSpeed = 0.3;
 		
 		facingRight = true;
+        falling = true;
 		
 		health = maxHealth = 5;
 		maxMoney = 2500;
@@ -78,7 +77,7 @@ public class Player extends MapObject {
     public void shootMoney(){
         throwingMoney = true;
     }
-    public void setCardMode(){
+    public void setCarMode(){
         carMode = !carMode;
     }
     public void setAttacking(){
@@ -87,53 +86,17 @@ public class Player extends MapObject {
 
     public void update(){
 
-        if (left) {
-            dx -= moveSpeed;
-            if (dx< -maxSpeed) {
-                dx = -maxSpeed;
-            }
-        }
-        else if(right){
-           dx+= moveSpeed;
-           if (dx>maxSpeed) {
-               dx = maxSpeed;
-           } 
-        }
-        else{
-            if (dx>0) {
-                dx-=stopSpeed;
-                if (dx<0) {
-                    dx=0;
-                }
-            }
-            else if(dx<0){
-                dx+=stopSpeed;
-                if (dx>0) {
-                    dx=0;
-                }
-            }
-        }
-
-        if (jumping && !falling) {
-            dy = jumpStart;
-            falling = true;
-        }
-
-        if (falling) {
-            dy += fallSpeed;
-            if (dy>0) {
-                jumping = false;
-            }
-            if (dy<0 && !jumping) {
-                dy+=stopJumpSpeed;
-            }
-            if (dy>maxFallSpeed) {
-                dy = maxFallSpeed;
-            }
-        }
-
+        getNextPosition();
         checkTileMapCollision(); 
         setPosition(xtemp, ytemp); 
+
+        if(iFrame) {
+			long elapsed =
+				(System.nanoTime() - iFrameCounter) / 1000000;
+			if(elapsed > 1000) {
+				iFrame = false;
+			}
+		}
 
         if (attacking) {
             if (currentAction!=ATTACK) {
@@ -146,17 +109,17 @@ public class Player extends MapObject {
                 currentAction= MONEY;
             }
         }
-        else if(falling){
+        else if(dy>0){
             if (currentAction != FALLING) {
                 currentAction = FALLING;
             }
         }
-        else if(jumping){
+        else if(dy<0){
             if (currentAction != JUMPING) {
                 currentAction = JUMPING;
             }
         }
-        else if(moving){
+        else if(left || right){
             if (currentAction != WALKING) {
                 currentAction = WALKING;
             }
@@ -174,7 +137,59 @@ public class Player extends MapObject {
         }
     }
 
+    private void getNextPosition() {
+        if(left) {
+			dx -= moveSpeed;
+			if(dx < -maxSpeed) {
+				dx = -maxSpeed;
+			}
+		}
+		else if(right) {
+			dx += moveSpeed;
+			if(dx > maxSpeed) {
+				dx = maxSpeed;
+			}
+		}
+		else {
+			if(dx > 0) {
+				dx -= stopSpeed;
+				if(dx < 0) {
+					dx = 0;
+				}
+			}
+			else if(dx < 0) {
+				dx += stopSpeed;
+				if(dx > 0) {
+					dx = 0;
+				}
+			}
+		}
+		
+		
+		// jumping
+		if(jumping && !falling) {
+			dy = jumpStart;
+			falling = true;	
+		}
+		
+		// falling
+		if(falling) {
+			
+			
+			dy += fallSpeed;
+			
+			if(dy > 0) jumping = false;
+			if(dy < 0 && !jumping) dy += stopJumpSpeed;
+			
+			if(dy > maxFallSpeed) dy = maxFallSpeed;
+			
+		}
+    }
+
     public void draw(Graphics2D g){
+
+        setMapPosition();
+
         if(iFrame){
             long elapsed = (System.nanoTime()-iFrameCounter) / 1000000;
             if (elapsed/100 %2 ==0) {
@@ -182,12 +197,9 @@ public class Player extends MapObject {
             }
         }
 
-        if (facingRight) {
-            // g.drawImage(img, op, x, y);
-        }
-        else if(!facingRight){
-            // g.drawImage(img, op, x, y);
-        }
+        super.draw(g);
     }
+
+    
 
 }

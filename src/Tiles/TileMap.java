@@ -45,12 +45,8 @@ public class TileMap {
 		numRowsToDraw = GamePanel.HEIGHT / tileSize + 2;
 		numColsToDraw = GamePanel.WIDTH / tileSize + 2;
         this.loadTiles();
-        this.setPosition(0, 0);
 
-		xmin = GamePanel.WIDTH-width;
-		xmax = 0;
-		ymax =0;
-		ymin = GamePanel.HEIGHT-height; 
+		
 	}
 	
 	public void loadTiles() {
@@ -104,11 +100,16 @@ public class TileMap {
 			
 			Scanner sc = new Scanner(new File(s));
             sc.useDelimiter(",");
-			numCols = Integer.parseInt(sc.nextLine());
 			numRows = Integer.parseInt(sc.nextLine());
+			numCols = Integer.parseInt(sc.nextLine());
 			map = new int[numRows][numCols];
 			width = numCols * tileSize;
 			height = numRows * tileSize;
+
+			xmin = GamePanel.WIDTH-width;
+			xmax = 0;
+			ymax =0;
+			ymin = GamePanel.HEIGHT-height; 
 			
 			for(int row = 0; row < numRows; row++) {
 				String line = sc.nextLine();
@@ -148,7 +149,11 @@ public class TileMap {
 	}
 	
 	public int getType(int row, int col) {
+		
 		int token = map[row][col];
+		if (token==-1) {
+			return Tile.NORMAL;
+		}
 		return tiles[token].getType();
 	}
 	
@@ -158,6 +163,7 @@ public class TileMap {
 		this.y += (y - this.y);
 		
 		fixBounds();
+
 		
 		colOffset = (int)this.x *-1/ tileSize;
 		rowOffset = (int)this.y *-1 / tileSize;

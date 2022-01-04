@@ -23,6 +23,7 @@ public class Level1State extends GameState {
     public void init() {
         tileMap = new TileMap(18);
         tileMap.loadMap("/Users/nimapourjafar/Documents/GitHub/tobias/assets/map/world.csv");
+        tileMap.setPosition(0, 0);
 
         bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png",0.2);
 
@@ -31,10 +32,9 @@ public class Level1State extends GameState {
     }
 
     public void update() {
-        // TODO Auto-generated method stub
+        
         player.update();
-
-        tileMap.setPosition(
+		tileMap.setPosition(
 			GamePanel.WIDTH / 2 - player.getx(),
 			GamePanel.HEIGHT / 2 - player.gety()
 		);
@@ -67,7 +67,7 @@ public class Level1State extends GameState {
             player.shootMoney();
         }
         if (k==KeyEvent.VK_S) {
-            player.setCardMode();
+            player.setCarMode();
         }
         if (k==KeyEvent.VK_D) {
             player.setAttacking();
