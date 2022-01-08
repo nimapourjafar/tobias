@@ -1,8 +1,13 @@
 package Entity;
 
-import Tiles.TileMap;
-
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+
+import Tiles.TileMap;
 
 public class Player extends MapObject {
     
@@ -16,7 +21,7 @@ public class Player extends MapObject {
 
 
     private boolean throwingMoney;
-    private int moneyCost;
+    private ArrayList<Money> moneyOnScreen;
     private int moneyDamage;
 
     private boolean attacking;
@@ -30,12 +35,14 @@ public class Player extends MapObject {
     private int gas;
 
     private int IDLE = 0;
-    private int WALKING = 1;
-    private int JUMPING = 2;
-    private int FALLING = 3;
-    private int MONEY = 4;    
-    private int CAR = 5;
-    private int ATTACK = 6;
+    private int MONEY = 1;    
+    private int CAR = 2;
+    private int ATTACK = 3;
+
+    private ArrayList<BufferedImage[]> sprites;
+    private final int[] numFrames = {
+		1, 1, 1, 1
+	};
     
 
     public Player(TileMap tm) {
@@ -59,15 +66,28 @@ public class Player extends MapObject {
         falling = true;
 		
 		health = maxHealth = 5;
-		maxMoney = 2500;
+		maxMoney = 25;
         money = maxMoney;
 		
-		moneyCost = 200;
 		moneyDamage = 5;
-		//fireBalls = new ArrayList<FireBall>();
+		moneyOnScreen = new ArrayList<Money>();
 		
 		attackDamage = 8;
 		attackRange = 40;
+
+
+        try {
+			sprites = new ArrayList<BufferedImage[]>();
+
+            BufferedImage[] idle = new BufferedImage[1];
+            idle[0] = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/idle.png"));
+            
+            sprites.add(idle);
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 
         animation = new Animation();
 		currentAction = IDLE;
@@ -91,6 +111,32 @@ public class Player extends MapObject {
         checkTileMapCollision(); 
         setPosition(xtemp, ytemp); 
 
+        if (currentAction == ATTACK) {
+            if (animation.hasPlayedOnce()) {
+                attacking = false;
+            }
+        }
+        if (currentAction==MONEY) {
+            if (animation.hasPlayedOnce()) {
+                throwingMoney = false;
+            }
+        }
+
+        if (throwingMoney) {
+            money -=1;
+            Money money = new Money(tileMap,facingRight);
+            money.setPosition(x, y);
+        }
+
+        for (int i = 0; i < moneyOnScreen.size(); i++) {
+            moneyOnScreen.get(i).update();
+            if (moneyOnScreen.get(i).undrawFromGame()) {
+                moneyOnScreen.remove(i);
+                i--;
+            }
+        }
+
+
         if(iFrame) {
 			long elapsed =
 				(System.nanoTime() - iFrameCounter) / 1000000;
@@ -110,24 +156,16 @@ public class Player extends MapObject {
                 currentAction= MONEY;
             }
         }
-        else if(dy>0){
-            if (currentAction != FALLING) {
-                currentAction = FALLING;
-            }
-        }
-        else if(dy<0){
-            if (currentAction != JUMPING) {
-                currentAction = JUMPING;
-            }
-        }
-        else if(left || right){
-            if (currentAction != WALKING) {
-                currentAction = WALKING;
+        else if(carMode){
+            if (currentAction!=CAR) {
+                currentAction= CAR;
             }
         }
         else{
             if (currentAction!=IDLE) {
                 currentAction = IDLE;
+                animation.setFrames(sprites.get(IDLE));
+                
             }
         }
         if (right) {
@@ -190,6 +228,10 @@ public class Player extends MapObject {
     public void draw(Graphics2D g){
 
         setMapPosition();
+
+        for (int i = 0; i < moneyOnScreen.size(); i++) {
+            moneyOnScreen.get(i).draw(g);
+        }
 
         if(iFrame){
             long elapsed = (System.nanoTime()-iFrameCounter) / 1000000;

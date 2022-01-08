@@ -28,6 +28,10 @@ public class Animation {
         currentFrame = i;
     }
 
+    public boolean hasPlayedOnce(){
+        return playedOnce;
+    }
+
     public void update(){
         if (delay==-1) {
             return;

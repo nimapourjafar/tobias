@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+
 import Tiles.Background;
 
 
@@ -20,11 +21,11 @@ public class MenuState extends GameState{
         this.gsm = gsm;
 
         try{
-            bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/stocks.jpeg", 1);
+            bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png", 1);
             bg.setVector(-0.1,0);
 
             titleColor = new Color(128, 0, 0);
-            titleFont = new Font("Century Gothic", Font.PLAIN, 28);
+            titleFont = new Font("Arial", Font.PLAIN, 28);
             font = new Font("Arial", Font.PLAIN, 12);
 
         }
@@ -88,7 +89,8 @@ public class MenuState extends GameState{
             gsm.setState(gsm.LEVEL1STATE);
         }
         else if(currentChoice==1){
-            // help
+            gsm.setState(gsm.HELPSTATE);
+
         }
         else if(currentChoice==2){
             // quit
