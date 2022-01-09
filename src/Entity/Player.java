@@ -33,6 +33,7 @@ public class Player extends MapObject {
 
     private boolean carMode;
     private int gas;
+    private int maxGas;
 
     private int IDLE = 0;
     private int MONEY = 1;    
@@ -40,9 +41,7 @@ public class Player extends MapObject {
     private int ATTACK = 3;
 
     private ArrayList<BufferedImage[]> sprites;
-    private final int[] numFrames = {
-		1, 1, 1, 1
-	};
+
     
 
     public Player(TileMap tm) {
@@ -95,14 +94,38 @@ public class Player extends MapObject {
 		animation.setDelay(400);
     }
 
-    public void shootMoney(){
-        throwingMoney = true;
+    public void shootMoney(boolean b){
+        throwingMoney = b;
     }
     public void setCarMode(){
         carMode = !carMode;
     }
-    public void setAttacking(){
-        attacking = true;
+    public void setAttacking(boolean b){
+        attacking = b;
+    }
+
+    public int getHealth(){
+        return health;
+    }
+
+    public int getMaxHealth(){
+        return maxHealth;
+    }
+
+    public int getMoney(){
+        return money;
+    }
+
+    public int getMaxMoney(){
+        return maxMoney;
+    }
+
+    public int getGas(){
+        return gas;
+    }
+
+    public int getMaxGas(){
+        return maxGas;
     }
 
     public void update(){
@@ -122,10 +145,13 @@ public class Player extends MapObject {
             }
         }
 
-        if (throwingMoney) {
-            money -=1;
-            Money money = new Money(tileMap,facingRight);
-            money.setPosition(x, y);
+        if (throwingMoney && currentAction != MONEY) {
+            if (money>0) {
+                money -=1;
+                Money money = new Money(tileMap,facingRight);
+                money.setPosition(x, y);
+                moneyOnScreen.add(money);
+            }
         }
 
         for (int i = 0; i < moneyOnScreen.size(); i++) {
