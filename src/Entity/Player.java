@@ -73,6 +73,8 @@ public class Player extends MapObject {
 		
 		attackDamage = 8;
 		attackRange = 40;
+        
+        gas = maxGas = 100;
 
 
         try {

@@ -26,6 +26,7 @@ public class LevelState extends GameState {
         init();
     }
 
+
     public void init() {
         tileMap = new TileMap(18);
         tileMap.loadMap("/Users/nimapourjafar/Documents/GitHub/tobias/assets/map/world.csv");
@@ -42,10 +43,6 @@ public class LevelState extends GameState {
 		
 		Point[] points = new Point[] {
 			new Point(200, 100),
-			new Point(860, 200),
-			new Point(1525, 200),
-			new Point(1680, 200),
-			new Point(1800, 200)
 		};
 		for(int i = 0; i < points.length; i++) {
 			Enemy enemy = new Enemy(tileMap);

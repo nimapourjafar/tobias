@@ -22,8 +22,8 @@ public class Money extends MapObject {
             dx = -1* moveSpeed;
         }
 
-        width = 30;
-        height = 16;
+        width = 15;
+        height = 8;
         cwidth = 14;
         cheight = 14;
 
