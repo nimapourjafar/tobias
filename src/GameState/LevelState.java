@@ -62,7 +62,7 @@ public class LevelState extends GameState {
 			GamePanel.HEIGHT / 2 - player.gety()
 		);
 
-        // player.checkAttack(enemies);
+        player.checkEnemyCollision(enemies);
 
         for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);

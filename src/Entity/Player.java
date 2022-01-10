@@ -94,6 +94,61 @@ public class Player extends MapObject {
 		animation.setDelay(400);
     }
 
+    public void checkEnemyCollision(ArrayList<Enemy> enemies){
+        
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy e = enemies.get(i);
+            if (attacking) {
+                if(facingRight) {
+					if(
+						e.getx() > x &&
+						e.getx() < x + attackRange && 
+						e.gety() > y - height / 2 &&
+						e.gety() < y + height / 2
+					) {
+						e.hit(attackRange);
+					}
+				}
+				else {
+					if(
+						e.getx() < x &&
+						e.getx() > x - attackRange &&
+						e.gety() > y - height / 2 &&
+						e.gety() < y + height / 2
+					) {
+						e.hit(attackRange);
+					}
+				}
+            }
+            if (carMode) {
+                e.hit(100000);
+            }
+
+            for(int j = 0; j < moneyOnScreen.size(); j++) {
+				if(moneyOnScreen.get(j).intersects(e)) {
+					e.hit(moneyDamage);
+					moneyOnScreen.get(j).setHit();
+					break;
+				}
+			}
+			
+			// check enemy collision
+			if(intersects(e)) {
+				hit(e.getDamage());
+			}
+        }
+    }
+
+    public void hit(int damage) {
+		if(dead || iFrame) return;
+		health -= damage;
+		if(health < 0) health = 0;
+		if(health == 0) dead = true;
+		iFrame = true;
+		iFrameCounter = System.nanoTime();
+	}
+
+
     public void shootMoney(boolean b){
         throwingMoney = b;
     }
