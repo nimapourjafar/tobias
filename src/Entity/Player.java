@@ -122,9 +122,7 @@ public class Player extends MapObject {
 					}
 				}
             }
-            if (carMode) {
-                e.hit(100000);
-            }
+            
 
             for(int j = 0; j < moneyOnScreen.size(); j++) {
 				if(moneyOnScreen.get(j).intersects(e)) {
@@ -136,7 +134,12 @@ public class Player extends MapObject {
 			
 			// check enemy collision
 			if(intersects(e)) {
-				hit(e.getDamage());
+                if (carMode) {
+                    e.hit(e.getHealth());
+                }
+                else{
+                    hit(e.getDamage());
+                }
 			}
         }
     }
@@ -154,8 +157,8 @@ public class Player extends MapObject {
     public void shootMoney(boolean b){
         throwingMoney = b;
     }
-    public void setCarMode(){
-        carMode = !carMode;
+    public void setCarMode(boolean b){
+        carMode = b;
     }
     public void setAttacking(boolean b){
         attacking = b;
@@ -200,6 +203,21 @@ public class Player extends MapObject {
             if (animation.hasPlayedOnce()) {
                 throwingMoney = false;
             }
+        }
+        if (gas<maxGas && carMode==false) {
+            gas+=1;
+        }
+        if (carMode && gas>0) {
+            moveSpeed = 1.5;
+    		maxSpeed = 2.6;
+            gas-=2;
+            if (gas<=0) {
+                carMode= false;
+            }
+        }
+        else if(carMode==false){
+            moveSpeed = 0.3;
+		    maxSpeed = 1.6;
         }
 
         if (throwingMoney && currentAction != MONEY) {

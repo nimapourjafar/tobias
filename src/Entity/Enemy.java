@@ -59,6 +59,8 @@ public class Enemy extends MapObject {
     public boolean isDead() { return dead; }
 	
 	public int getDamage() { return damage; }
+
+	public int getHealth() { return health; }
 	
 	public void hit(int damage) {
 		if(dead || iFrame) return;

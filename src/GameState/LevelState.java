@@ -79,11 +79,14 @@ public class LevelState extends GameState {
         
         bg.draw(g);
         tileMap.draw(g);
-        player.draw(g);
 
         for(int i = 0; i < enemies.size(); i++) {
 			enemies.get(i).draw(g);
 		}
+
+
+        player.draw(g);
+        
         
         hud.draw(g);
 
@@ -104,7 +107,7 @@ public class LevelState extends GameState {
             player.shootMoney(true);
         }
         if (k==KeyEvent.VK_S) {
-            player.setCarMode();
+            player.setCarMode(true);
         }
         if (k==KeyEvent.VK_D) {
             player.setAttacking(true);
@@ -126,7 +129,7 @@ public class LevelState extends GameState {
             player.shootMoney(false);
         }
         if (k==KeyEvent.VK_S) {
-            player.setCarMode();
+            player.setCarMode(false);
         }
         if (k==KeyEvent.VK_D) {
             player.setAttacking(false);
