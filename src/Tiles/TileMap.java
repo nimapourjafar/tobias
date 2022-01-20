@@ -52,7 +52,7 @@ public class TileMap {
 	public void loadTiles() {
 		
 		try {
-			this.tiles = new Tile[16];
+			this.tiles = new Tile[19];
             BufferedImage tile;
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/0.png"));
             tiles[0] = new Tile(tile,Tile.BLOCKED);
@@ -61,11 +61,11 @@ public class TileMap {
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/2.png"));
             tiles[2] = new Tile(tile, Tile.BLOCKED);
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/3.png"));
-            tiles[3] = new Tile(tile, Tile.NORMAL);
+            tiles[3] = new Tile(tile, Tile.BLOCKED);
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/4.png"));
-            tiles[4] = new Tile(tile, Tile.NORMAL);
+            tiles[4] = new Tile(tile, Tile.BLOCKED);
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/5.png"));
-            tiles[5] = new Tile(tile, Tile.NORMAL);
+            tiles[5] = new Tile(tile, Tile.BLOCKED);
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/6.png"));
             tiles[6] = new Tile(tile, Tile.BLOCKED);
             tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/7.png"));
@@ -85,7 +85,13 @@ public class TileMap {
 			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/14.png"));
             tiles[14] = new Tile(tile, Tile.NORMAL);
 			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/15.png"));
-            tiles[15] = new Tile(tile, Tile.NORMAL);
+            tiles[15] = new Tile(tile, Tile.BLOCKED);
+			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/16.png"));
+            tiles[16] = new Tile(tile, Tile.BLOCKED);
+			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/17.png"));
+            tiles[17] = new Tile(tile, Tile.BLOCKED);
+			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/18.png"));
+            tiles[18] = new Tile(tile, Tile.BLOCKED);
 			
 		}
 		catch(Exception e) {
