@@ -99,6 +99,10 @@ public class TileMap {
 		}
 		
 	}
+
+	public void changeTile(int row, int col,int token){
+		map[row][col] = token;
+	}
 	
 	public void loadMap(String s) {
 		

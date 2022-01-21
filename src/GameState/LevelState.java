@@ -35,7 +35,7 @@ public class LevelState extends GameState {
         bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png",0.2);
 
         player = new Player(tileMap);
-        player.setPosition(100,100);
+        player.setPosition(2000,100);
         hud = new HUD(player);
 
         enemies = new ArrayList<Enemy>();
@@ -69,7 +69,15 @@ public class LevelState extends GameState {
 				i--;
 			}
 		}
-        
+
+
+        if (player.getx() > 2360) {
+            tileMap.changeTile(12, 129, 5);
+            tileMap.changeTile(13, 129, 5);
+            tileMap.changeTile(14, 129, 5);
+        }
+
+
     }
 
     public void draw(Graphics2D g) {

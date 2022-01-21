@@ -87,13 +87,9 @@ public abstract class MapObject {
 	public void calculateCorners(double x, double y) {
 		
 		int leftTile = (int)(x - cwidth / 2) / tileSize;
-		System.out.println(leftTile);
 		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
-		System.out.println(rightTile);
 		int topTile = (int)(y - cheight / 2) / tileSize;
-		System.out.println(topTile);
 		int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
-		System.out.println(bottomTile);
 		
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
