@@ -68,10 +68,10 @@ public class Player extends MapObject {
 		maxMoney = 25;
         money = maxMoney;
 		
-		moneyDamage = 5;
+		moneyDamage = 2;
 		moneyOnScreen = new ArrayList<Money>();
 		
-		attackDamage = 8;
+		attackDamage = 5;
 		attackRange = 40;
         
         gas = maxGas = 100;
@@ -96,6 +96,48 @@ public class Player extends MapObject {
 		animation.setDelay(400);
     }
 
+    public void checkBossCollision(Boss boss){
+        if (attacking) {
+            if(facingRight) {
+                if(
+                    boss.getx() > x &&
+                    boss.getx() < x + attackRange && 
+                    boss.gety() > y - height / 2 &&
+                    boss.gety() < y + height / 2
+                ) {
+                    boss.hit(attackDamage);
+                }
+            }
+            else {
+                if(
+                    boss.getx() < x &&
+                    boss.getx() > x - attackRange &&
+                    boss.gety() > y - height / 2 &&
+                    boss.gety() < y + height / 2
+                ) {
+                    boss.hit(attackDamage);
+                }
+            }
+        }
+
+        for (int i = 0; i < moneyOnScreen.size(); i++) {
+            if (moneyOnScreen.get(i).intersects(boss)) {
+                boss.hit(moneyDamage);
+                moneyOnScreen.get(i).setHit();
+                break;
+            }
+        }
+
+        if (intersects(boss)) {
+            if (carMode) {
+                return;
+            }
+            else{
+                hit(boss.getDamage());
+            }
+        }
+    }
+
     public void checkEnemyCollision(ArrayList<Enemy> enemies){
         
         for (int i = 0; i < enemies.size(); i++) {
@@ -108,7 +150,7 @@ public class Player extends MapObject {
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
-						e.hit(attackRange);
+						e.hit(attackDamage);
 					}
 				}
 				else {
@@ -118,7 +160,7 @@ public class Player extends MapObject {
 						e.gety() > y - height / 2 &&
 						e.gety() < y + height / 2
 					) {
-						e.hit(attackRange);
+						e.hit(attackDamage);
 					}
 				}
             }
@@ -199,11 +241,7 @@ public class Player extends MapObject {
                 attacking = false;
             }
         }
-        if (currentAction==MONEY) {
-            if (animation.hasPlayedOnce()) {
-                throwingMoney = false;
-            }
-        }
+
         if (gas<maxGas && carMode==false) {
             gas+=1;
         }
@@ -237,6 +275,11 @@ public class Player extends MapObject {
             }
         }
 
+        if (attacking) {
+            width =60;
+
+        }
+
 
         if(iFrame) {
 			long elapsed =
@@ -265,10 +308,10 @@ public class Player extends MapObject {
         else{
             if (currentAction!=IDLE) {
                 currentAction = IDLE;
-                animation.setFrames(sprites.get(IDLE));
-                
             }
         }
+
+        // animation.setFrames(sprites.get(currentAction));
         if (right) {
             facingRight = true;
         }

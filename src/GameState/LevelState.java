@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import Entity.Boss;
 import Entity.Enemy;
 import Entity.Player;
 import Game.GamePanel;
@@ -20,6 +21,7 @@ public class LevelState extends GameState {
     private Player player;
     private HUD hud;
     private ArrayList<Enemy> enemies;
+    private Boss boss;
 
     public LevelState(GameStateManager gsm){
         this.gsm = gsm;
@@ -37,6 +39,9 @@ public class LevelState extends GameState {
         player = new Player(tileMap);
         player.setPosition(2000,100);
         hud = new HUD(player);
+
+        boss = new Boss(tileMap);
+        boss.setPosition(2513, 180);
 
         enemies = new ArrayList<Enemy>();
 		
@@ -61,6 +66,12 @@ public class LevelState extends GameState {
 
         player.checkEnemyCollision(enemies);
 
+        if (boss.isSpawend()) {
+            boss.update();
+            player.checkBossCollision(boss);
+            boss.checkPlayerCollisions(player);
+        }
+
         for(int i = 0; i < enemies.size(); i++) {
 			Enemy e = enemies.get(i);
 			e.update();
@@ -75,8 +86,18 @@ public class LevelState extends GameState {
             tileMap.changeTile(12, 129, 5);
             tileMap.changeTile(13, 129, 5);
             tileMap.changeTile(14, 129, 5);
+            boss.setSpawned(true);
+            
         }
 
+        System.out.println("x:"+player.getx());
+        System.out.println("y:"+player.gety());
+
+        
+
+        if (boss.isDead()) {
+            gsm.setState(gsm.MENUSTATE);
+        }
 
     }
 
@@ -92,9 +113,9 @@ public class LevelState extends GameState {
 			enemies.get(i).draw(g);
 		}
 
+        boss.draw(g);
 
         player.draw(g);
-        
         
         hud.draw(g);
 
@@ -138,9 +159,6 @@ public class LevelState extends GameState {
         }
         if (k==KeyEvent.VK_S) {
             player.setCarMode(false);
-        }
-        if (k==KeyEvent.VK_D) {
-            player.setAttacking(false);
         }
 
         
