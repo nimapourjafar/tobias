@@ -160,7 +160,6 @@ public class LevelState extends GameState {
         if (k==KeyEvent.VK_S) {
             player.setCarMode(false);
         }
-
         
     }
     

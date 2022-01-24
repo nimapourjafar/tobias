@@ -40,7 +40,7 @@ public class Player extends MapObject {
     private int CAR = 2;
     private int ATTACK = 3;
 
-    private ArrayList<BufferedImage[]> sprites;
+    private ArrayList<BufferedImage> sprites;
 
     
 
@@ -49,9 +49,9 @@ public class Player extends MapObject {
 
 
         width = 30;
-		height = 30;
+		height = 50;
 		cwidth = 20;
-		cheight = 20;
+		cheight = 30;
 		
 		moveSpeed = 0.3;
 		maxSpeed = 1.6;
@@ -76,24 +76,22 @@ public class Player extends MapObject {
         
         gas = maxGas = 100;
 
+        currentAction = IDLE;
+
 
         try {
-			sprites = new ArrayList<BufferedImage[]>();
-
-            BufferedImage[] idle = new BufferedImage[1];
-            idle[0] = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/idle.png"));
+			sprites = new ArrayList<BufferedImage>();
             
-            sprites.add(idle);
-			
+            BufferedImage idleImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/idle.png"));
+
+            sprites.add(idleImage);
+            
+            
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 
-        animation = new Animation();
-		currentAction = IDLE;
-		
-		animation.setDelay(400);
     }
 
     public void checkBossCollision(Boss boss){
@@ -236,11 +234,6 @@ public class Player extends MapObject {
         checkTileMapCollision(); 
         setPosition(xtemp, ytemp); 
 
-        if (currentAction == ATTACK) {
-            if (animation.hasPlayedOnce()) {
-                attacking = false;
-            }
-        }
 
         if (gas<maxGas && carMode==false) {
             gas+=1;
@@ -384,7 +377,27 @@ public class Player extends MapObject {
             }
         }
 
-        super.draw(g);
+        if(facingRight) {
+			g.drawImage(
+				sprites.get(currentAction),
+				(int)(x + xmap - width / 2 + width),
+				(int)(y + ymap - height / 2),
+				width,
+				height,
+				null
+			);
+			
+		}
+		else {
+			g.drawImage(
+				sprites.get(currentAction),
+				(int)(x + xmap - width / 2),
+				(int)(y + ymap - height / 2),
+				-width,
+				height,
+				null
+			);
+		}
     }
 
     
