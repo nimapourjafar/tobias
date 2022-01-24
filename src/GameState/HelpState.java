@@ -8,50 +8,39 @@ import java.awt.event.KeyEvent;
 
 public class HelpState extends GameState {
 
-    private Background bg;
     private Color titleColor;
     private Font titleFont;
     private Font font;
 
     public HelpState(GameStateManager gsm){
         this.gsm = gsm;
-
-        try{
-            bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png", 1);
-            bg.setVector(-0.1,0);
-
-            titleColor = new Color(128, 0, 0);
-            titleFont = new Font("Arial", Font.PLAIN, 28);
-            font = new Font("Arial", Font.PLAIN, 12);
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void init() {
-        // TODO Auto-generated method stub
-        
     }
 
     public void update() {
-        // TODO Auto-generated method stub
         
     }
 
     public void draw(Graphics2D g) {
-        // TODO Auto-generated method stub
+        g.setBackground(Color.BLUE);
+
+        g.setColor(Color.WHITE);
+        g.setFont(titleFont);
+        g.drawString("How to Play", 80, 70);
+        g.drawString("How to Play", 80, 70);
         
     }
 
     public void keyPressed(int k) {
-        // TODO Auto-generated method stub
+        if (k == KeyEvent.VK_ENTER) {
+            gsm.setState(gsm.MENUSTATE);
+        }
         
     }
 
     public void keyReleased(int k) {
-        // TODO Auto-generated method stub
         
     }
     

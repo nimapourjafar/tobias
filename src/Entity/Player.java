@@ -83,9 +83,14 @@ public class Player extends MapObject {
 			sprites = new ArrayList<BufferedImage>();
             
             BufferedImage idleImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/idle.png"));
+            BufferedImage moneyImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/shooting.png"));
+            BufferedImage attackImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/attack.png"));
+            BufferedImage driveImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/driving.png"));
 
             sprites.add(idleImage);
-            
+            sprites.add(moneyImage);
+            sprites.add(driveImage);
+            sprites.add(attackImage);
             
 		}
 		catch(Exception e) {
@@ -244,6 +249,7 @@ public class Player extends MapObject {
             gas-=2;
             if (gas<=0) {
                 carMode= false;
+                currentAction = IDLE;
             }
         }
         else if(carMode==false){
@@ -304,7 +310,6 @@ public class Player extends MapObject {
             }
         }
 
-        // animation.setFrames(sprites.get(currentAction));
         if (right) {
             facingRight = true;
         }
@@ -382,7 +387,7 @@ public class Player extends MapObject {
 				sprites.get(currentAction),
 				(int)(x + xmap - width / 2 + width),
 				(int)(y + ymap - height / 2),
-				width,
+				-width,
 				height,
 				null
 			);
@@ -393,7 +398,7 @@ public class Player extends MapObject {
 				sprites.get(currentAction),
 				(int)(x + xmap - width / 2),
 				(int)(y + ymap - height / 2),
-				-width,
+				width,
 				height,
 				null
 			);
