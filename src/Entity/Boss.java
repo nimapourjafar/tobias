@@ -166,7 +166,23 @@ public class Boss extends MapObject {
             projectiles.get(i).draw(g);
         }
 
-        super.draw(g);
+        if(facingRight) {
+            g.drawRect(
+                (int)(x + xmap - width / 2),
+                (int)(y + ymap - height / 2),
+                width,
+                height
+            );
+            
+        }
+        else {
+            g.drawRect(
+                (int)(x + xmap - width / 2 ),
+                (int)(y + ymap - height / 2),
+                width,
+                height
+            );
+        }
     }
     
 }

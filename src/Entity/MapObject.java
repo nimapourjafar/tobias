@@ -195,30 +195,8 @@ public abstract class MapObject {
 		return x + xmap + width < 0 ||
 			x + xmap - width > GamePanel.WIDTH ||
 			y + ymap + height < 0 ||
-			y + ymap - height > GamePanel.HEIGHT;
+			y + ymap - height > GamePanel.HEIGHT*2;
 	}
 
-	public void draw(java.awt.Graphics2D g) {
-		// g.drawLine((int)(x+xmap-cwidth/2), 0, (int)(x+xmap-cwidth/2), GamePanel.HEIGHT);
-		// g.drawLine((int)(x+xmap+cwidth/2 -1), 0, (int)(x+xmap+cwidth/2-1), GamePanel.HEIGHT);
-
-        if(facingRight) {
-            g.drawRect(
-                (int)(x + xmap - width / 2),
-                (int)(y + ymap - height / 2),
-                width,
-                height
-            );
-            
-        }
-        else {
-            g.drawRect(
-                (int)(x + xmap - width / 2 ),
-                (int)(y + ymap - height / 2),
-                width,
-                height
-            );
-        }
-    }
 }
 

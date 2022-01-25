@@ -95,7 +95,9 @@ public class Enemy extends MapObject {
 	}
 
     public void update() {
-		
+		if (notOnScreen()) {
+            return;
+        }
 		// update position
 		getNextPosition();
 		checkTileMapCollision();
@@ -128,9 +130,7 @@ public class Enemy extends MapObject {
 	}
 
     public void draw(Graphics2D g){
-        if (notOnScreen()) {
-            return;
-        }
+        
         setMapPosition();
 		
 		// super.draw(g);

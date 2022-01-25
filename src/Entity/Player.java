@@ -25,6 +25,8 @@ public class Player extends MapObject {
     private int moneyDamage;
 
     private boolean attacking;
+    private boolean attackStarted;
+    private long attackTimer;
     private int attackDamage;
     private int attackRange;
 
@@ -71,8 +73,9 @@ public class Player extends MapObject {
 		moneyDamage = 2;
 		moneyOnScreen = new ArrayList<Money>();
 		
-		attackDamage = 5;
+		attackDamage = 3;
 		attackRange = 40;
+        attackStarted = false;
         
         gas = maxGas = 100;
 
@@ -276,6 +279,16 @@ public class Player extends MapObject {
 
         if (attacking) {
             width =60;
+            if (attackStarted == false) {
+                attackStarted= true;
+                attackTimer = System.nanoTime();
+            }
+            long elapsed =(System.nanoTime() - attackTimer) / 1000000;
+            if (elapsed>100) {
+                attacking = false;
+                attackStarted = false;
+                width = 30;
+            }
 
         }
 

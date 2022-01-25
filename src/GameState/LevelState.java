@@ -37,17 +37,23 @@ public class LevelState extends GameState {
         bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png",0.2);
 
         player = new Player(tileMap);
-        player.setPosition(2000,100);
+        player.setPosition(100,100);
         hud = new HUD(player);
 
         boss = new Boss(tileMap);
-        boss.setPosition(100, 100);
+        boss.setPosition(2500, 100);
 
         enemies = new ArrayList<Enemy>();
 		
 		
 		Point[] points = new Point[] {
 			new Point(200, 100),
+            new Point(700,200),
+            new Point(866,255),
+            new Point(1255,147),
+            new Point(1748,183),
+            new Point(2064,255),
+            new Point(2100,255),
 		};
 		for(int i = 0; i < points.length; i++) {
 			Enemy enemy = new Enemy(tileMap);
