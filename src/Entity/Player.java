@@ -263,7 +263,7 @@ public class Player extends MapObject {
         if (throwingMoney && currentAction != MONEY) {
             if (money>0) {
                 money -=1;
-                Projectiles money = new Projectiles(tileMap,facingRight);
+                Projectiles money = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
                 money.setPosition(x, y);
                 moneyOnScreen.add(money);
             }

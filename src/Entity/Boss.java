@@ -34,10 +34,10 @@ public class Boss extends MapObject {
 		fallSpeed = 0.2;
 		maxFallSpeed = 10.0;
 		
-		width = 30;
+		width = 40;
 		height = 50;
 		cwidth = 20;
-		cheight = 20;
+		cheight = 30;
     
         health = 20;
 		damage = 1;
@@ -144,9 +144,9 @@ public class Boss extends MapObject {
         
 
         if (elapsed > 4000) {
-            Projectiles projectile1 = new Projectiles(tileMap,facingRight);
-            Projectiles projectile2 = new Projectiles(tileMap,facingRight);
-            Projectiles projectile3 = new Projectiles(tileMap,facingRight);
+            Projectiles projectile1 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
+            Projectiles projectile2 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
+            Projectiles projectile3 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
 
             projectile1.setPosition(x, y+20);
             projectile2.setPosition(x, y);

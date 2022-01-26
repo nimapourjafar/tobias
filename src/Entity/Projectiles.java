@@ -11,7 +11,7 @@ public class Projectiles extends MapObject {
     private boolean collision;
 
 
-    public Projectiles(TileMap tm, boolean right){
+    public Projectiles(TileMap tm, boolean right, String path){
         super(tm);
 
         moveSpeed = 3.8;
