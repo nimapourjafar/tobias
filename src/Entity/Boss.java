@@ -1,20 +1,29 @@
 package Entity;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import Tiles.TileMap;
 
 public class Boss extends MapObject {
 
     private int health;
-    private int maxHealth;
     private boolean dead;
 	private int damage;
 
-    private ArrayList<Money> projectiles;
+    private ArrayList<Projectiles> projectiles;
     private long projectileTimerCounter;
     private boolean spawned;
+
+    private boolean iFrame;
+    private long iFrameCounter;
+
+    private BufferedImage sprite;
 	
 
     public Boss(TileMap tm) {
@@ -26,23 +35,28 @@ public class Boss extends MapObject {
 		maxFallSpeed = 10.0;
 		
 		width = 30;
-		height = 30;
+		height = 50;
 		cwidth = 20;
 		cheight = 20;
-        
-
-        health = maxHealth = 20;
+    
+        health = 20;
 		damage = 1;
 
         dead = false;
 
-        projectiles = new ArrayList<Money>();
+        projectiles = new ArrayList<Projectiles>();
         projectileTimerCounter = System.nanoTime();
 
         spawned = false;
 
         right = true;
         facingRight = true;
+
+        try {
+            sprite = ImageIO.read(new File("./assets/player/mswong.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
     }
 
@@ -87,10 +101,12 @@ public class Boss extends MapObject {
 
 
     public void hit(int damage) {
-		if(dead) return;
+		if(dead||iFrame) return;
 		health -= damage;
 		if(health < 0) health = 0;
 		if(health == 0) dead = true;
+        iFrame = true;
+		iFrameCounter = System.nanoTime();
 	}
 
     public void checkPlayerCollisions(Player player){
@@ -125,11 +141,12 @@ public class Boss extends MapObject {
 		}
         
         long elapsed = (System.nanoTime() - projectileTimerCounter) / 1000000;
+        
 
-        if (elapsed > 1000) {
-            Money projectile1 = new Money(tileMap,facingRight);
-            Money projectile2 = new Money(tileMap,facingRight);
-            Money projectile3 = new Money(tileMap,facingRight);
+        if (elapsed > 4000) {
+            Projectiles projectile1 = new Projectiles(tileMap,facingRight);
+            Projectiles projectile2 = new Projectiles(tileMap,facingRight);
+            Projectiles projectile3 = new Projectiles(tileMap,facingRight);
 
             projectile1.setPosition(x, y+20);
             projectile2.setPosition(x, y);
@@ -140,6 +157,14 @@ public class Boss extends MapObject {
             
             projectileTimerCounter = System.nanoTime();
         }
+
+        if(iFrame) {
+			long elapsedIFrame =
+				(System.nanoTime() - iFrameCounter) / 1000000;
+			if(elapsedIFrame > 1000) {
+				iFrame = false;
+			}
+		}
 
         for (int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).update();
@@ -166,23 +191,34 @@ public class Boss extends MapObject {
             projectiles.get(i).draw(g);
         }
 
+        if(iFrame){
+            long elapsed = (System.nanoTime()-iFrameCounter) / 1000000;
+            if (elapsed/100 %2 ==0) {
+                return;
+            }
+        }
+
         if(facingRight) {
-            g.drawRect(
-                (int)(x + xmap - width / 2),
-                (int)(y + ymap - height / 2),
-                width,
-                height
-            );
-            
-        }
-        else {
-            g.drawRect(
-                (int)(x + xmap - width / 2 ),
-                (int)(y + ymap - height / 2),
-                width,
-                height
-            );
-        }
+			g.drawImage(
+				sprite,
+				(int)(x + xmap - width / 2 + width),
+				(int)(y + ymap - height / 2),
+				-width,
+				height,
+				null
+			);
+			
+		}
+		else {
+			g.drawImage(
+				sprite,
+				(int)(x + xmap - width / 2),
+				(int)(y + ymap - height / 2),
+				width,
+				height,
+				null
+			);
+		}
     }
     
 }

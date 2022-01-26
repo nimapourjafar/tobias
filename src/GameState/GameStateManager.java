@@ -8,9 +8,9 @@ public class GameStateManager {
 	private ArrayList<GameState> gameStates;
 	private int currentState;
 	
-	public static final int MENUSTATE = 0;
-	public static final int LEVEL1STATE = 1;
-	public static final int HELPSTATE = 2;
+	public final int MENUSTATE = 0;
+	public final int LEVEL1STATE = 1;
+	public final int HELPSTATE = 2;
 	
 	public GameStateManager() {
 		

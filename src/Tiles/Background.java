@@ -18,9 +18,9 @@ public class Background {
 
     private double moveScale;
 
-    public Background(String s, double ms) {
+    public Background() {
         try{
-            image =  ImageIO.read(new File(s));
+            image =  ImageIO.read(new File("./assets/background/background.png"));
         }
         catch (Exception e){
             e.printStackTrace();

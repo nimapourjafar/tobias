@@ -6,12 +6,12 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import Tiles.TileMap;
 
-public class Money extends MapObject {
+public class Projectiles extends MapObject {
 
     private boolean collision;
 
 
-    public Money(TileMap tm, boolean right){
+    public Projectiles(TileMap tm, boolean right){
         super(tm);
 
         moveSpeed = 3.8;
@@ -29,7 +29,7 @@ public class Money extends MapObject {
 
         try{
             animation = new Animation();
-            BufferedImage moneyImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/money/0.png"));
+            BufferedImage moneyImage = ImageIO.read(new File("./assets/projectiles/0.png"));
             BufferedImage[] sprites = new BufferedImage[1];
             sprites[0] = moneyImage;
             animation.setFrames(sprites);

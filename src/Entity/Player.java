@@ -21,7 +21,7 @@ public class Player extends MapObject {
 
 
     private boolean throwingMoney;
-    private ArrayList<Money> moneyOnScreen;
+    private ArrayList<Projectiles> moneyOnScreen;
     private int moneyDamage;
 
     private boolean attacking;
@@ -71,7 +71,7 @@ public class Player extends MapObject {
         money = maxMoney;
 		
 		moneyDamage = 2;
-		moneyOnScreen = new ArrayList<Money>();
+		moneyOnScreen = new ArrayList<Projectiles>();
 		
 		attackDamage = 3;
 		attackRange = 40;
@@ -85,10 +85,10 @@ public class Player extends MapObject {
         try {
 			sprites = new ArrayList<BufferedImage>();
             
-            BufferedImage idleImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/idle.png"));
-            BufferedImage moneyImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/shooting.png"));
-            BufferedImage attackImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/attack.png"));
-            BufferedImage driveImage = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/player/driving.png"));
+            BufferedImage idleImage = ImageIO.read(new File("./assets/player/idle.png"));
+            BufferedImage moneyImage = ImageIO.read(new File("./assets/player/shooting.png"));
+            BufferedImage attackImage = ImageIO.read(new File("./assets/player/attack.png"));
+            BufferedImage driveImage = ImageIO.read(new File("./assets/player/driving.png"));
 
             sprites.add(idleImage);
             sprites.add(moneyImage);
@@ -263,7 +263,7 @@ public class Player extends MapObject {
         if (throwingMoney && currentAction != MONEY) {
             if (money>0) {
                 money -=1;
-                Money money = new Money(tileMap,facingRight);
+                Projectiles money = new Projectiles(tileMap,facingRight);
                 money.setPosition(x, y);
                 moneyOnScreen.add(money);
             }

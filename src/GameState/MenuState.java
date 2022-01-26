@@ -13,7 +13,6 @@ public class MenuState extends GameState{
     private Background bg;
     private int currentChoice = 0;
     private String[] options = {"Start", "Help", "Quit"};
-    private Color titleColor;
     private Font titleFont;
     private Font font;
 
@@ -21,10 +20,9 @@ public class MenuState extends GameState{
         this.gsm = gsm;
 
         try{
-            bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png", 1);
+            bg = new Background();
             bg.setVector(-0.1,0);
 
-            titleColor = new Color(128, 0, 0);
             titleFont = new Font("Arial", Font.PLAIN, 28);
             font = new Font("Arial", Font.PLAIN, 12);
 
@@ -45,9 +43,9 @@ public class MenuState extends GameState{
     public void draw(Graphics2D g){
         bg.draw(g);
 
-        g.setColor(titleColor);
+        g.setColor(Color.BLACK);
         g.setFont(titleFont);
-        g.drawString("Tobias", 80, 70);
+        g.drawString("Tobias", 115, 70);
 
         g.setFont(font);
 

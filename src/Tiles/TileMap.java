@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import Game.Game;
+
 import Game.GamePanel;
 
 public class TileMap {
@@ -29,9 +29,7 @@ public class TileMap {
 	private int width;
 	private int height;
 	
-	// tileset
-	private BufferedImage tileset;
-	private int numTilesAcross;
+	// tiles loaded
 	private Tile[] tiles;
 	
 	// drawing
@@ -54,43 +52,43 @@ public class TileMap {
 		try {
 			this.tiles = new Tile[19];
             BufferedImage tile;
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/0.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/0.png"));
             tiles[0] = new Tile(tile,Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/1.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/1.png"));
             tiles[1] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/2.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/2.png"));
             tiles[2] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/3.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/3.png"));
             tiles[3] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/4.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/4.png"));
             tiles[4] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/5.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/5.png"));
             tiles[5] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/6.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/6.png"));
             tiles[6] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/7.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/7.png"));
             tiles[7] = new Tile(tile, Tile.BLOCKED);
-            tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/8.png"));
+            tile = ImageIO.read(new File("./assets/tilemap/8.png"));
             tiles[8] = new Tile(tile, Tile.BLOCKED);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/9.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/9.png"));
             tiles[9] = new Tile(tile, Tile.BLOCKED);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/10.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/10.png"));
             tiles[10] = new Tile(tile, Tile.NORMAL);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/11.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/11.png"));
             tiles[11] = new Tile(tile, Tile.NORMAL);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/12.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/12.png"));
             tiles[12] = new Tile(tile, Tile.NORMAL);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/13.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/13.png"));
             tiles[13] = new Tile(tile, Tile.NORMAL);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/14.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/14.png"));
             tiles[14] = new Tile(tile, Tile.NORMAL);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/15.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/15.png"));
             tiles[15] = new Tile(tile, Tile.BLOCKED);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/16.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/16.png"));
             tiles[16] = new Tile(tile, Tile.BLOCKED);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/17.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/17.png"));
             tiles[17] = new Tile(tile, Tile.BLOCKED);
-			tile = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/tilemap/18.png"));
+			tile = ImageIO.read(new File("./assets/tilemap/18.png"));
             tiles[18] = new Tile(tile, Tile.BLOCKED);
 			
 		}
@@ -223,8 +221,6 @@ public class TileMap {
 					null
 				);
 
-				// g.drawLine((int)x + col * tileSize, 0, (int)x + col * tileSize, GamePanel.HEIGHT);
-				// g.drawLine(0,(int)y + row * tileSize,GamePanel.WIDTH,(int)y + row * tileSize);
 				
 			}
 			

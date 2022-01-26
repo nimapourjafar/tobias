@@ -31,10 +31,10 @@ public class LevelState extends GameState {
 
     public void init() {
         tileMap = new TileMap(18);
-        tileMap.loadMap("/Users/nimapourjafar/Documents/GitHub/tobias/assets/map/world.csv");
+        tileMap.loadMap("./assets/map/world.csv");
         tileMap.setPosition(0, 0);
 
-        bg = new Background("/Users/nimapourjafar/Documents/GitHub/tobias/assets/background/background.png",0.2);
+        bg = new Background();
 
         player = new Player(tileMap);
         player.setPosition(100,100);
@@ -96,19 +96,13 @@ public class LevelState extends GameState {
             
         }
 
-        System.out.println("x:"+player.getx());
-        System.out.println("y:"+player.gety());
-
-        
-
-        if (boss.isDead()) {
+        if (boss.isDead() || player.getHealth()<=0) {
             gsm.setState(gsm.MENUSTATE);
         }
 
     }
 
     public void draw(Graphics2D g) {
-        
         g.setColor(Color.white);
         g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
         

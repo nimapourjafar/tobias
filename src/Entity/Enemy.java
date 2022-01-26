@@ -10,7 +10,6 @@ import Tiles.TileMap;
 public class Enemy extends MapObject {
 
     private int health;
-    private int maxHealth;
     private boolean dead;
 	private int damage;
 	
@@ -30,15 +29,15 @@ public class Enemy extends MapObject {
 		cwidth = 20;
 		cheight = 20;
 		
-		health = maxHealth = 2;
+		health  = 2;
 		damage = 1;
 
         try {
 			
 			BufferedImage[] sprites = new BufferedImage[2];
 
-            sprites[0] = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/enemy/0.png"));
-            sprites[1] = ImageIO.read(new File("/Users/nimapourjafar/Documents/GitHub/tobias/assets/enemy/1.png"));
+            sprites[0] = ImageIO.read(new File("./assets/enemy/0.png"));
+            sprites[1] = ImageIO.read(new File("./assets/enemy/1.png"));
 
 		    animation = new Animation();
 		    animation.setFrames(sprites);
@@ -50,8 +49,9 @@ public class Enemy extends MapObject {
 		}
 		
 		
-		right = true;
-		facingRight = true;
+		right = false;
+		facingRight = false;
+		left = true;
 		
     }
 
