@@ -144,9 +144,9 @@ public class Boss extends MapObject {
         
 
         if (elapsed > 4000) {
-            Projectiles projectile1 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
-            Projectiles projectile2 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
-            Projectiles projectile3 = new Projectiles(tileMap,facingRight,"./assets/projectiles/0.png");
+            Projectiles projectile1 = new Projectiles(tileMap,facingRight,"./assets/projectiles/1.png");
+            Projectiles projectile2 = new Projectiles(tileMap,facingRight,"./assets/projectiles/1.png");
+            Projectiles projectile3 = new Projectiles(tileMap,facingRight,"./assets/projectiles/1.png");
 
             projectile1.setPosition(x, y+20);
             projectile2.setPosition(x, y);

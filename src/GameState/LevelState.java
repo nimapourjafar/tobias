@@ -41,7 +41,7 @@ public class LevelState extends GameState {
         hud = new HUD(player);
 
         boss = new Boss(tileMap);
-        boss.setPosition(2000, 120);
+        boss.setPosition(2500, 120);
 
         enemies = new ArrayList<Enemy>();
 		
