@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 import Tiles.TileMap;
 
-public class Boss extends MapObject {
+public class Boss extends Entity {
 
     private int health;
     private boolean dead;

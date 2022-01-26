@@ -6,7 +6,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import Tiles.TileMap;
 
-public class Projectiles extends MapObject {
+public class Projectiles extends Entity {
 
     private boolean collision;
 

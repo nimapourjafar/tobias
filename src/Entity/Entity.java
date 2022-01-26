@@ -6,9 +6,10 @@ import Game.GamePanel;
 import Tiles.Tile;
 import Tiles.TileMap;
 
-public abstract class MapObject {
+// Entitiy class is abstract so that things like player, enemies, ect. can extend off of it
+public abstract class Entity {
 	
-	// tile stuff
+	// tile map variables
 	protected TileMap tileMap;
 	protected int tileSize;
 	protected double xmap;
@@ -63,18 +64,18 @@ public abstract class MapObject {
 	protected double jumpStart;
 	protected double stopJumpSpeed;
 	
-	// constructor
-	public MapObject(TileMap tm) {
+	// constructor that gets in current tilemap
+	public Entity(TileMap tm) {
 		tileMap = tm;
 		tileSize = tm.getTileSize(); 
 	}
-	
-	public boolean intersects(MapObject o) {
+	// method to check if the collision rectanlges of 2 entities intersects
+	public boolean intersects(Entity o) {
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
 	}
-	
+	// method to return the collision box of an entity
 	public Rectangle getRectangle() {
 		return new Rectangle(
 				(int)x - cwidth,
@@ -83,19 +84,21 @@ public abstract class MapObject {
 				cheight
 		);
 	}
-	
+	// method to check the tile corners of an entity and see if the tiles are blocked or normal
 	public void calculateCorners(double x, double y) {
-		
+		// gets the rows and columns of the corner tiles (-1 was added for right and bottom because it kept bugging out)
 		int leftTile = (int)(x - cwidth / 2) / tileSize;
 		int rightTile = (int)(x + cwidth / 2 - 1) / tileSize;
 		int topTile = (int)(y - cheight / 2) / tileSize;
 		int bottomTile = (int)(y + cheight / 2 - 1) / tileSize;
 		
+		// gets the tile objects from the rows and columns 
 		int tl = tileMap.getType(topTile, leftTile);
 		int tr = tileMap.getType(topTile, rightTile);
 		int bl = tileMap.getType(bottomTile, leftTile);
 		int br = tileMap.getType(bottomTile, rightTile);
 		
+		// sets boolean values for whether or not the corner tiles are blocked
 		topLeft = tl == Tile.BLOCKED;
 		topRight = tr == Tile.BLOCKED;
 		bottomLeft = bl == Tile.BLOCKED;
@@ -103,38 +106,46 @@ public abstract class MapObject {
 		
 	}
 	
+	// method to check entities collision with tiles
 	public void checkTileMapCollision() {
-		
+		// get entities current col and row
 		currCol = (int)x / tileSize;
 		currRow = (int)y / tileSize;
 		
+		// calculate where the entity wants to go
 		xdest = x + dx;
 		ydest = y + dy;
 		
+		// set temporary variables
 		xtemp = x;
 		ytemp = y;
 		
+		// Calculate corners for y destination
 		calculateCorners(x, ydest);
 		if(dy < 0) {
+			// if the entity is jumping and the top left or top right tiles are blocked, set the y momentum to 0 and place the entity a tile below where they hit their head
 			if(topLeft || topRight) {
 				dy = 0;
 				ytemp = currRow * tileSize + cheight / 2;
 			} 
+			// otherwise continue incrementing the y momentum
 			else {
 				ytemp += dy;
 			}
 		}
 		if(dy > 0) {
+			// if the entity is falling and the bottom left or bottom right tiles are blocked, set the y momentum to 0, set the falling variable to false, and set the entity a tile above where they fell
 			if(bottomLeft || bottomRight) {
 				dy = 0;
 				falling = false;
 				ytemp = (currRow + 1) * tileSize - cheight / 2;
 			}
+			// otherwise continue incrementing the y momentum
 			else {
 				ytemp += dy;
 			}
 		}
-		
+		// Calculate corners for x destination
 		calculateCorners(xdest, y);
 		if(dx < 0) {
 			if(topLeft || bottomLeft) {
@@ -154,9 +165,11 @@ public abstract class MapObject {
 				xtemp += dx;
 			}
 		}
-		
+		// if the entity is not falling then calculate the corners the check if they should be falling
 		if(!falling) {
+			// calculate the tiles below the entity 
 			calculateCorners(x, ydest + 1);
+			// if they are normal then set the entity to be falling
 			if(!bottomLeft && !bottomRight) {
 				falling = true;
 			}
@@ -164,12 +177,15 @@ public abstract class MapObject {
 		
 	}
 	
+	// getter methods
 	public double getx() { return x; }
 	public double gety() { return y; }
 	public int getWidth() { return width; }
 	public int getHeight() { return height; }
 	public int getCWidth() { return cwidth; }
 	public int getCHeight() { return cheight; }
+
+	// setter methods
 	
 	public void setPosition(double x, double y) {
 		this.x = x;
@@ -190,12 +206,13 @@ public abstract class MapObject {
 	public void setUp(boolean b) { up = b; }
 	public void setDown(boolean b) { down = b; }
 	public void setJumping(boolean b) { jumping = b; }
-	
+
+	// method to check if entity is not on screen
 	public boolean notOnScreen() {
 		return x + xmap + width < 0 ||
 			x + xmap - width > GamePanel.WIDTH ||
 			y + ymap + height < 0 ||
-			y + ymap - height > GamePanel.HEIGHT*2;
+			y + ymap - height > GamePanel.HEIGHT;
 	}
 
 }

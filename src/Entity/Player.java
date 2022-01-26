@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import Tiles.TileMap;
 
-public class Player extends MapObject {
+public class Player extends Entity {
     
     private int health;
     private int maxHealth;
