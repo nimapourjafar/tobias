@@ -41,6 +41,7 @@ public class GamePanel extends JPanel
 	
 	public void addNotify() {
 		super.addNotify();
+		// start the thread and key listener 
 		if(thread == null) {
 			thread = new Thread(this);
 			addKeyListener(this);
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel
 	}
 	
 	private void init() {
-
+		// create image that hosts all the graphics on the panel
 		image = new BufferedImage(
 					WIDTH, HEIGHT,
 					BufferedImage.TYPE_INT_RGB
@@ -57,11 +58,11 @@ public class GamePanel extends JPanel
 		g = (Graphics2D) image.getGraphics();
 		
 		running = true;
-		
+		// create game state manager
 		gsm = new GameStateManager();
 		
 	}
-	
+	// run function for game panel
 	public void run() {
 		
 		init();
@@ -75,15 +76,22 @@ public class GamePanel extends JPanel
 			
 			start = System.nanoTime();
 			
+			// call gsm methods
 			update();
 			draw();
+			// draw image to JPanel
 			drawToScreen();
 			
+			// calculate the elapsed time since the start
 			elapsed = System.nanoTime() - start;
 			
+			// calculate how long to sleep the thread
 			wait = targetTime - elapsed / 1000000;
-			if(wait < 0) wait = 5;
-			
+			// make sure timeout value is not negative
+			if(wait < 0){
+				wait = 5;
+			}
+			// sleep thread to follow FPS
 			try {
 				Thread.sleep(wait);
 			}
@@ -94,13 +102,15 @@ public class GamePanel extends JPanel
 		}
 		
 	}
-	
+	// method to update the state
 	private void update() {
 		gsm.update();
 	}
+	// method to draw state to image
 	private void draw() {
 		gsm.draw(g);
 	}
+	// method to draw image to screen
 	private void drawToScreen() {
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,
