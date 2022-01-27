@@ -7,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.JPanel;
 
 import GameState.GameStateManager;
+// JPanel that the game will run on
 // Make GamePanel extend JPanel and implement runnable & key listener
 public class GamePanel extends JPanel 
 	implements Runnable, KeyListener{

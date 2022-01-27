@@ -72,7 +72,7 @@ public class LevelState extends GameState {
 
         player.checkEnemyCollision(enemies);
 
-        if (boss.isSpawend()) {
+        if (boss.isSpawned()) {
             boss.update();
             player.checkBossCollision(boss);
             boss.checkPlayerCollisions(player);

@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import Game.GamePanel;
 import Tiles.Tile;
 import Tiles.TileMap;
-
+// the entity class handles all the entities (or moving things) on the screen
 // Entitiy class is abstract so that things like player, enemies, ect. can extend off of it
 public abstract class Entity {
 	
@@ -41,10 +41,7 @@ public abstract class Entity {
 	protected boolean bottomLeft;
 	protected boolean bottomRight;
 	
-	// animation
-	protected Animation animation;
-	protected int currentAction;
-	protected int previousAction;
+	// for drawing
 	protected boolean facingRight;
 	
 	// movement
@@ -200,6 +197,8 @@ public abstract class Entity {
 		xmap = tileMap.getX();
 		ymap = tileMap.getY();
 	}
+
+
 	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }

@@ -2,7 +2,7 @@ package Entity;
 
 import java.awt.image.BufferedImage;
 
-
+// class to handle animations
 public class Animation {
 	
 	// variables for the frames of the animation

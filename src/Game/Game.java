@@ -2,6 +2,7 @@ package Game;
 
 import javax.swing.JFrame;
 
+// main class for game
 public class Game {
 	// Main function for game
 	public static void main(String[] args) 
